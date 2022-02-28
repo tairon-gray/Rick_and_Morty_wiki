@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Rick &amp; Morty wiki</string>
+    <string name="example_text">Example</string>
 </resources>
