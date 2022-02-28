@@ -11,7 +11,7 @@ public class CharacterResponce {
     private DataInfo dataInfo;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<Character> characters = null;
 
     public DataInfo getInfo() {
         return dataInfo;
@@ -21,11 +21,11 @@ public class CharacterResponce {
         this.dataInfo = dataInfo;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public List<Character> getResults() {
+        return characters;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setResults(List<Character> characters) {
+        this.characters = characters;
     }
 }
