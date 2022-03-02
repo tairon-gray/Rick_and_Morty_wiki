@@ -1,11 +1,12 @@
 package com.evg_ivanoff.rickmortywiki;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.evg_ivanoff.rickmortywiki.adapters.CharacterAdapter;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
@@ -14,7 +15,6 @@ import com.evg_ivanoff.rickmortywiki.pojo.Character;
 import com.evg_ivanoff.rickmortywiki.pojo.CharacterResponce;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,8 +37,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCharacters = findViewById(R.id.recyclerViewCharacters);
         characterAdapter = new CharacterAdapter();
         characterAdapter.setCharacters(new ArrayList<Character>());
-        recyclerViewCharacters.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewCharacters.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerViewCharacters.setAdapter(characterAdapter);
+
+        //слушатель нажатия на персонажа в recyclerView
+        characterAdapter.setOnCharacterClickListener(new CharacterAdapter.OnCharacterClickListener() {
+            @Override
+            public void onCharacterClick(int position) {
+                Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //слушатель прокрутки recyclerView до конца
+        characterAdapter.setOnReachEndListener(new CharacterAdapter.OnReachEndListener() {
+            @Override
+            public void OnReachEnd() {
+                Toast.makeText(MainActivity.this, "End of list", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ApiChars apiChars = ApiChars.getInstance();
         ApiService apiService = apiChars.getApiService();
@@ -62,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(compositeDisposable != null){
+        if (compositeDisposable != null) {
             compositeDisposable.dispose();
         }
         super.onDestroy();
