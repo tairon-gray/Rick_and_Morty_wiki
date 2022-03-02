@@ -1,13 +1,15 @@
-package com.evg_ivanoff.rickmortywiki;
+package com.evg_ivanoff.rickmortywiki.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.evg_ivanoff.rickmortywiki.R;
 import com.evg_ivanoff.rickmortywiki.adapters.CharacterAdapter;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
 import com.evg_ivanoff.rickmortywiki.api.ApiService;
@@ -15,6 +17,7 @@ import com.evg_ivanoff.rickmortywiki.pojo.Character;
 import com.evg_ivanoff.rickmortywiki.pojo.CharacterResponce;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -45,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCharacterClick(int position) {
                 Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, CharInfoActivity.class);
+                List<Character> chars = characterAdapter.getCharacters();
+                Character character = chars.get(position);
+                intent.putExtra("img", character.getImage());
+                intent.putExtra("name", character.getName());
+                intent.putExtra("status", character.getStatus());
+                intent.putExtra("vid", character.getSpecies());
+                intent.putExtra("mesto", character.getLocation().getName());
+                startActivity(intent);
             }
         });
 
