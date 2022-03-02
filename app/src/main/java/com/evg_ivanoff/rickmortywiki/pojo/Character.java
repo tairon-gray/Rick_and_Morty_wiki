@@ -1,5 +1,8 @@
 package com.evg_ivanoff.rickmortywiki.pojo;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -138,4 +141,17 @@ public class Character {
     public void setCreated(String created) {
         this.created = created;
     }
+
+
+    public static final DiffUtil.ItemCallback<Character> CALLBACK = new DiffUtil.ItemCallback<Character>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Character oldItem, @NonNull Character newItem) {
+            return oldItem.id == newItem.id;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Character oldItem, @NonNull Character newItem) {
+            return true;
+        }
+    };
 }
