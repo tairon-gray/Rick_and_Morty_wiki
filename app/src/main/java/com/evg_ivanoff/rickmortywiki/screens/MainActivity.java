@@ -1,7 +1,9 @@
 package com.evg_ivanoff.rickmortywiki.screens;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,15 +49,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCharacterClick(int position) {
                 Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, CharInfoActivity.class);
                 List<CharacterOne> chars = characterAdapter.getCharacters();
                 CharacterOne characterOne = chars.get(position);
                 intent.putExtra("id", characterOne.getId());
-                intent.putExtra("img", characterOne.getImage());
-                intent.putExtra("name", characterOne.getName());
-                intent.putExtra("status", characterOne.getStatus());
-                intent.putExtra("vid", characterOne.getSpecies());
-                intent.putExtra("mesto", characterOne.getLocation().getName());
+                preferences.edit().putInt("id", characterOne.getId()).apply();
                 startActivity(intent);
             }
         });
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Fatal Error", Toast.LENGTH_SHORT).show();
                     }
                 });
         compositeDisposable.add(disposable);

@@ -1,22 +1,27 @@
 package com.evg_ivanoff.rickmortywiki.screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.evg_ivanoff.rickmortywiki.R;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
 import com.evg_ivanoff.rickmortywiki.api.ApiService;
 import com.evg_ivanoff.rickmortywiki.pojo.CharacterOne;
-import com.evg_ivanoff.rickmortywiki.pojo.CharacterResponce;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -31,10 +36,11 @@ public class CharInfoActivity extends AppCompatActivity {
     private TextView textCharLocation;
     private TextView textCharStatus;
     private ImageView imageViewChar;
+    private Button btnEpisodes;
     private int charId;
     private Disposable disposable;
     private CompositeDisposable compositeDisposable;
-
+    private List<Integer> episodesId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +52,21 @@ public class CharInfoActivity extends AppCompatActivity {
         textCharLocation = findViewById(R.id.textCharLocation);
         textCharStatus = findViewById(R.id.textCharStatus);
         imageViewChar = findViewById(R.id.imageViewChar);
+        btnEpisodes = findViewById(R.id.btnEpisodes);
 
-        Intent intent = getIntent();
-        charId = intent.getIntExtra("id",0);
+        btnEpisodes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentEp = new Intent(CharInfoActivity.this, Episodes.class);
+                intentEp.putExtra("epId", charId);
+                intentEp.putExtra("charName", textCharName.getText());
+                intentEp.putIntegerArrayListExtra("episodesId", (ArrayList<Integer>) episodesId);
+                startActivity(intentEp);
+            }
+        });
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CharInfoActivity.this);
+        charId = preferences.getInt("id", 0);
 
         ApiChars apiChars = ApiChars.getInstance();
         ApiService apiService = apiChars.getApiService();
@@ -59,10 +77,14 @@ public class CharInfoActivity extends AppCompatActivity {
                 .subscribe(new Consumer<CharacterOne>() {
                     @Override
                     public void accept(CharacterOne characterOne) throws Exception {
-                        textCharStatus.setText(characterOne.getName());
+                        textCharName.setText(characterOne.getName());
                         textCharStatus.setText(characterOne.getStatus());
                         textCharLocation.setText(characterOne.getLocation().getName());
                         textCharType.setText(characterOne.getSpecies());
+                        List<String> ss = characterOne.getEpisode();
+                        for (int i = 0; i < ss.size(); i++) {
+                            episodesId.add(asId(ss.get(i)));
+                        }
                         Picasso.get().load(characterOne.getImage()).into(imageViewChar);
                         setTitle(characterOne.getName());
                     }
@@ -75,6 +97,14 @@ public class CharInfoActivity extends AppCompatActivity {
         compositeDisposable.add(disposable);
 
 
+    }
+
+    public List<Integer> getEpisodesId() {
+        return episodesId;
+    }
+
+    public Integer asId(String url) {
+        return Integer.parseInt(url.substring(url.lastIndexOf('/') + 1));
     }
 
     @Override

@@ -13,7 +13,8 @@
         android:theme="@style/Theme.RickMortyWiki">
         <activity
             android:name=".screens.Episodes"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".screens.CharInfoActivity" />
         <activity
             android:name=".screens.CharInfoActivity"
             android:exported="false"
