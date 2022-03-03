@@ -2,7 +2,6 @@ package com.evg_ivanoff.rickmortywiki.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +12,7 @@ import com.evg_ivanoff.rickmortywiki.R;
 import com.evg_ivanoff.rickmortywiki.adapters.CharacterAdapter;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
 import com.evg_ivanoff.rickmortywiki.api.ApiService;
-import com.evg_ivanoff.rickmortywiki.pojo.Character;
+import com.evg_ivanoff.rickmortywiki.pojo.CharacterOne;
 import com.evg_ivanoff.rickmortywiki.pojo.CharacterResponce;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerViewCharacters = findViewById(R.id.recyclerViewCharacters);
         characterAdapter = new CharacterAdapter();
-        characterAdapter.setCharacters(new ArrayList<Character>());
+        characterAdapter.setCharacters(new ArrayList<CharacterOne>());
         recyclerViewCharacters.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerViewCharacters.setAdapter(characterAdapter);
 
@@ -49,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
             public void onCharacterClick(int position) {
                 Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, CharInfoActivity.class);
-                List<Character> chars = characterAdapter.getCharacters();
-                Character character = chars.get(position);
-                intent.putExtra("img", character.getImage());
-                intent.putExtra("name", character.getName());
-                intent.putExtra("status", character.getStatus());
-                intent.putExtra("vid", character.getSpecies());
-                intent.putExtra("mesto", character.getLocation().getName());
+                List<CharacterOne> chars = characterAdapter.getCharacters();
+                CharacterOne characterOne = chars.get(position);
+                intent.putExtra("id", characterOne.getId());
+                intent.putExtra("img", characterOne.getImage());
+                intent.putExtra("name", characterOne.getName());
+                intent.putExtra("status", characterOne.getStatus());
+                intent.putExtra("vid", characterOne.getSpecies());
+                intent.putExtra("mesto", characterOne.getLocation().getName());
                 startActivity(intent);
             }
         });

@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evg_ivanoff.rickmortywiki.R;
-import com.evg_ivanoff.rickmortywiki.pojo.Character;
+import com.evg_ivanoff.rickmortywiki.pojo.CharacterOne;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
-    private List<Character> characters;
+    private List<CharacterOne> characterOnes;
     private OnCharacterClickListener onCharacterClickListener;
     private OnReachEndListener onReachEndListener;
 
-    public List<Character> getCharacters() {
-        return characters;
+    public List<CharacterOne> getCharacters() {
+        return characterOnes;
     }
 
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void setCharacters(List<CharacterOne> characterOnes) {
+        this.characterOnes = characterOnes;
         notifyDataSetChanged();
     }
 
@@ -55,17 +55,17 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-        if(position==characters.size() - 1 && onReachEndListener != null){
+        if(position== characterOnes.size() - 1 && onReachEndListener != null){
             onReachEndListener.OnReachEnd();
         }
-        Character character = characters.get(position);
-        holder.textViewCharacterName.setText(character.getName());
-        Picasso.get().load(character.getImage()).into(holder.imageViewCharacter);
+        CharacterOne characterOne = characterOnes.get(position);
+        holder.textViewCharacterName.setText(characterOne.getName());
+        Picasso.get().load(characterOne.getImage()).into(holder.imageViewCharacter);
     }
 
     @Override
     public int getItemCount() {
-        return characters.size();
+        return characterOnes.size();
     }
 
     class CharacterViewHolder extends RecyclerView.ViewHolder {

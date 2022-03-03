@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Character {
+public class CharacterOne {
     @SerializedName("id")
     @Expose
     private int id;
@@ -142,16 +142,4 @@ public class Character {
         this.created = created;
     }
 
-
-    public static final DiffUtil.ItemCallback<Character> CALLBACK = new DiffUtil.ItemCallback<Character>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Character oldItem, @NonNull Character newItem) {
-            return oldItem.id == newItem.id;
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Character oldItem, @NonNull Character newItem) {
-            return true;
-        }
-    };
 }

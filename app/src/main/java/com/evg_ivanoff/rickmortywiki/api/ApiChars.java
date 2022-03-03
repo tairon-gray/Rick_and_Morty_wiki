@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiChars {
     private static ApiChars apiChars;
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://rickandmortyapi.com/api/";
+    private static final String BASE_URL = "https://rickandmortyapi.com/";
 
     private ApiChars(){
         retrofit = new Retrofit.Builder()
