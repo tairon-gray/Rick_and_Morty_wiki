@@ -9,10 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evg_ivanoff.rickmortywiki.R;
-import com.evg_ivanoff.rickmortywiki.pojo.CharacterOne;
 import com.evg_ivanoff.rickmortywiki.pojo.Episode;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeV
     @Override
     public void onBindViewHolder(@NonNull EpisodeViewHolder holder, int position) {
         Episode episode = episodes.get(position);
-        holder.textEpisodeName.setText(episode.getName());
+        holder.textEpisodeName.setText(episode.getId() + ". " + episode.getName());
         holder.textEpisodeDate.setText(episode.getAirDate());
     }
 

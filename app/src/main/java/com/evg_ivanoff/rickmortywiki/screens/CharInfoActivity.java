@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.evg_ivanoff.rickmortywiki.R;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
@@ -38,9 +40,7 @@ public class CharInfoActivity extends AppCompatActivity {
     private ImageView imageViewChar;
     private Button btnEpisodes;
     private int charId;
-    private Disposable disposable;
-    private CompositeDisposable compositeDisposable;
-    private List<Integer> episodesId = new ArrayList<>();
+    private final List<Integer> episodesId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +70,8 @@ public class CharInfoActivity extends AppCompatActivity {
 
         ApiChars apiChars = ApiChars.getInstance();
         ApiService apiService = apiChars.getApiService();
-        compositeDisposable = new CompositeDisposable();
-        disposable = apiService.getCharacterById(charId)
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        Disposable disposable = apiService.getCharacterById(charId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CharacterOne>() {
@@ -95,8 +95,6 @@ public class CharInfoActivity extends AppCompatActivity {
                     }
                 });
         compositeDisposable.add(disposable);
-
-
     }
 
     public List<Integer> getEpisodesId() {
@@ -109,6 +107,7 @@ public class CharInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.i("Shared", "назад");
         return super.onOptionsItemSelected(item);
     }
 }

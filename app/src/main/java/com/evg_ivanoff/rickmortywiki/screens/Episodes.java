@@ -13,12 +13,10 @@ import com.evg_ivanoff.rickmortywiki.R;
 import com.evg_ivanoff.rickmortywiki.adapters.EpisodeAdapter;
 import com.evg_ivanoff.rickmortywiki.api.ApiChars;
 import com.evg_ivanoff.rickmortywiki.api.ApiService;
-import com.evg_ivanoff.rickmortywiki.pojo.CharacterOne;
-import com.evg_ivanoff.rickmortywiki.pojo.CharacterResponce;
 import com.evg_ivanoff.rickmortywiki.pojo.Episode;
-import com.evg_ivanoff.rickmortywiki.pojo.EpisodeResponce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,10 +27,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Episodes extends AppCompatActivity {
 
-
-    private Disposable disposable;
-    private CompositeDisposable compositeDisposable;
-    private int episodeId;
     private RecyclerView recyclerViewEpisodes;
     private List<Episode> episodesList = new ArrayList<>();
 
@@ -48,7 +42,7 @@ public class Episodes extends AppCompatActivity {
         recyclerViewEpisodes.setAdapter(episodeAdapter);
 
         Intent intent = getIntent();
-        episodeId = intent.getIntExtra("epId",1);
+        int episodeId = intent.getIntExtra("epId",1);
         String charName = intent.getStringExtra("charName");
 
         List<Integer> episodesId = intent.getIntegerArrayListExtra("episodesId");
@@ -57,8 +51,8 @@ public class Episodes extends AppCompatActivity {
         for(Integer id:episodesId) {
             ApiChars apiChars = ApiChars.getInstance();
             ApiService apiService = apiChars.getApiService();
-            compositeDisposable = new CompositeDisposable();
-            disposable = apiService.getEpisodeById(id)
+            CompositeDisposable compositeDisposable = new CompositeDisposable();
+            Disposable disposable = apiService.getEpisodeById(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<Episode>() {
@@ -66,8 +60,9 @@ public class Episodes extends AppCompatActivity {
                         public void accept(Episode episode) throws Exception {
                             Log.i("MyResult", "cj");
                             episodesList.add(episode);
+                            Collections.sort(episodesList);
                             episodeAdapter.setEpisodes(episodesList);
-                            setTitle(charName);
+                            setTitle(charName+"'s episodes");
                         }
                     }, new Consumer<Throwable>() {
                         @Override

@@ -11,18 +11,20 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/imageCharImage"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comic_neue"
-        android:text="Статус:"
+        android:text="@string/labelStatus"
         android:textSize="20sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
@@ -36,7 +38,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/comic_neue"
-        android:text="Имя:"
+        android:text="@string/labelName"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewChar" />
@@ -48,7 +50,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/comic_neue"
-        android:text="Место:"
+        android:text="@string/labelLocation"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCharName" />
@@ -58,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comic_neue"
-        android:text="Вид:"
+        android:text="@string/labelType"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
@@ -149,7 +151,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:layout_marginBottom="8dp"
+        android:text="@string/btnListOfEpisodes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

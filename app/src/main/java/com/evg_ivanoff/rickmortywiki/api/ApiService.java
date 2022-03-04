@@ -8,10 +8,14 @@ import com.evg_ivanoff.rickmortywiki.pojo.EpisodeResponce;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @GET("api/character")
     Observable<CharacterResponce> getCharacters();
+
+    @GET("api/character")
+    Observable<CharacterResponce> getCharactersByPage(@Query("page") int id);
 
     @GET("api/character/{id}")
     Observable<CharacterOne> getCharacterById(@Path("id") int id);

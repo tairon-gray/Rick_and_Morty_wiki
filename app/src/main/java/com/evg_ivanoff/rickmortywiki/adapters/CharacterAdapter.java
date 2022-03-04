@@ -38,11 +38,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         this.onReachEndListener = onReachEndListener;
     }
 
-    public interface OnCharacterClickListener{
+    public interface OnCharacterClickListener {
         void onCharacterClick(int position);
     }
 
-    public interface OnReachEndListener{
+    public interface OnReachEndListener {
         void OnReachEnd();
     }
 
@@ -55,7 +55,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-        if(position== characterOnes.size() - 1 && onReachEndListener != null){
+        if (characterOnes.size()>=0 && position == characterOnes.size() - 4 && onReachEndListener != null) {
             onReachEndListener.OnReachEnd();
         }
         CharacterOne characterOne = characterOnes.get(position);
@@ -80,7 +80,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(onCharacterClickListener != null){
+                    if (onCharacterClickListener != null) {
                         onCharacterClickListener.onCharacterClick(getAdapterPosition());
                     }
                 }

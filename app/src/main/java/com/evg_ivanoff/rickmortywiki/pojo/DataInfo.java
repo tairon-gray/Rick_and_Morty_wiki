@@ -15,7 +15,7 @@ public class DataInfo {
     private String next;
     @SerializedName("prev")
     @Expose
-    private Object prev;
+    private String prev;
 
     public int getCount() {
         return count;
@@ -41,11 +41,11 @@ public class DataInfo {
         this.next = next;
     }
 
-    public Object getPrev() {
+    public String getPrev() {
         return prev;
     }
 
-    public void setPrev(Object prev) {
+    public void setPrev(String prev) {
         this.prev = prev;
     }
 }
