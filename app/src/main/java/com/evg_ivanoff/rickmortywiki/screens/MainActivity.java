@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         downloadData(nextPage);
+
     }
 
     public Integer asId(String url) {
@@ -128,7 +127,9 @@ public class MainActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(MainActivity.this, "Fatal Error", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
+                        startActivity(intent);
+                        MainActivity.super.finish();
                     }
                 });
         compositeDisposable.add(disposable);
@@ -141,5 +142,6 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
 
 }

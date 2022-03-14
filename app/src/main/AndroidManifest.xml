@@ -12,13 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RickMortyWiki">
         <activity
+            android:name=".screens.ErrorActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:parentActivityName=".screens.MainActivity" />
+        <activity
             android:name=".screens.Episodes"
             android:exported="false"
-            android:parentActivityName=".screens.CharInfoActivity" />
+            android:parentActivityName=".screens.CharInfoActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".screens.CharInfoActivity"
             android:exported="false"
-            android:parentActivityName=".screens.MainActivity" />
+            android:parentActivityName=".screens.MainActivity"/>
         <activity
             android:name=".screens.MainActivity"
             android:exported="true">
