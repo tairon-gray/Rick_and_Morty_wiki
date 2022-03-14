@@ -91,7 +91,9 @@ public class CharInfoActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(CharInfoActivity.this, "World is shutdown", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CharInfoActivity.this, ErrorActivity.class);
+                        startActivity(intent);
+                        CharInfoActivity.super.finish();
                     }
                 });
         compositeDisposable.add(disposable);

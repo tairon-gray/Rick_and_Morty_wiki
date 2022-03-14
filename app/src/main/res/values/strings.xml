@@ -11,4 +11,6 @@
     <string name="labelLocation">Место:</string>
     <string name="labelType">Вид:</string>
     <string name="imageCharImage">Character Image</string>
+    <string name="download_error">Download error</string>
+    <string name="reload">reload</string>
 </resources>

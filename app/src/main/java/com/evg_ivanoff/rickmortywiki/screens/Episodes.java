@@ -67,7 +67,9 @@ public class Episodes extends AppCompatActivity {
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            Toast.makeText(Episodes.this, "Error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Episodes.this, ErrorActivity.class);
+                            startActivity(intent);
+                            Episodes.super.finish();
                         }
                     });
             compositeDisposable.add(disposable);
